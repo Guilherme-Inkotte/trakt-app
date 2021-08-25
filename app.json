@@ -1,0 +1,11 @@
+{
+  "expo": {
+    "name": "webjump-filmes",
+    "slug": "webjump-filmes",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  },
+  "name": "webjump-filmes"
+}
