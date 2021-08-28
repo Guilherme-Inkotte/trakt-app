@@ -19,54 +19,46 @@ const Home = () => {
   }, []);
 
   // Registro de eventListeners
-  useEffect(() => {
-    // Aciona toda vez que um filme é favoritado
-    const unsubscribe = store.subscribe(() => {
-      // Realiza uma cópia do estado do Redux
-      let storeData = store.getState();
-      let trendingMoviesCopy = [...trendingMovies];
-      // Percorre as 3 categorias de filmes para verificar se está favoritado ou não
-      // Esse método é necessário porque caso um filme esteja em múltiplas listas
-      // ele será marcado como favorito em todas as ocorrências
-      for (let index in trendingMoviesCopy) {
-        if (
-          storeData.some(
-            (movie) => movie.imdbID === trendingMoviesCopy[index].imdbID
-          )
-        )
-          trendingMoviesCopy[index].isFavorite = true;
-        else trendingMoviesCopy[index].isFavorite = false;
-      }
-      setTrendingMovies(trendingMoviesCopy);
+  // useEffect(() => {
+  //   // Aciona toda vez que um filme é favoritado
+  //   const unsubscribe = store.subscribe(() => {
+  //     checkForFavoriteUpdate();
+  //   });
+  //   return () => {
+  //     unsubscribe();
+  //   };
+  // }, []);
 
-      let recommendedMoviesCopy = [...recommendedMovies];
-      for (let index in recommendedMoviesCopy) {
-        if (
-          storeData.some(
-            (movie) => movie.imdbID === recommendedMoviesCopy[index].imdbID
-          )
-        )
-          recommendedMoviesCopy[index].isFavorite = true;
-        else recommendedMoviesCopy[index].isFavorite = false;
-      }
-      setRecommendedMovies(recommendedMoviesCopy);
+  function favoriteUpdated(imdbID) {
+    console.log(imdbID);
+    // Realiza uma cópia do estado do Redux
+    // Percorre as 3 categorias de filmes para verificar se está favoritado ou não
+    // Esse método é necessário porque caso um filme esteja em múltiplas listas
+    // ele será marcado como favorito em todas as ocorrências
+    let trendingMoviesCopy = [...trendingMovies];
+    for (let index in trendingMoviesCopy) {
+      if (trendingMoviesCopy[index].imdbID === imdbID)
+        trendingMoviesCopy[index].isFavorite =
+          !trendingMoviesCopy[index].isFavorite;
+    }
+    setTrendingMovies(trendingMoviesCopy);
 
-      let recentMoviesCopy = [...recentMovies];
-      for (let index in recentMoviesCopy) {
-        if (
-          storeData.some(
-            (movie) => movie.imdbID === recentMoviesCopy[index].imdbID
-          )
-        )
-          recentMoviesCopy[index].isFavorite = true;
-        else recentMoviesCopy[index].isFavorite = false;
-      }
-      setRecentMovies(recentMoviesCopy);
-    });
-    return () => {
-      unsubscribe();
-    };
-  }, []);
+    let recommendedMoviesCopy = [...recommendedMovies];
+    for (let index in recommendedMoviesCopy) {
+      if (recommendedMoviesCopy[index].imdbID === imdbID)
+        recommendedMoviesCopy[index].isFavorite =
+          !recommendedMoviesCopy[index].isFavorite;
+    }
+    setRecommendedMovies(recommendedMoviesCopy);
+
+    let recentMoviesCopy = [...recentMovies];
+    for (let index in recentMoviesCopy) {
+      if (recentMoviesCopy[index].imdbID === imdbID)
+        recentMoviesCopy[index].isFavorite =
+          !recentMoviesCopy[index].isFavorite;
+    }
+    setRecentMovies(recentMoviesCopy);
+  }
 
   function getData() {
     if (loading) return;
@@ -159,12 +151,18 @@ const Home = () => {
         }
         contentContainerStyle={{ paddingVertical: 20 }}
       >
-        <MovieList categoryTitle="Filmes em alta" movies={trendingMovies} />
         <MovieList
+          favoriteUpdated={favoriteUpdated}
+          categoryTitle="Filmes em alta"
+          movies={trendingMovies}
+        />
+        <MovieList
+          favoriteUpdated={favoriteUpdated}
           categoryTitle="Filmes recomendados"
           movies={recommendedMovies}
         />
         <MovieList
+          favoriteUpdated={favoriteUpdated}
           categoryTitle="Filmes atualizados recentemente"
           movies={recentMovies}
         />

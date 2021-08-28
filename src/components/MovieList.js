@@ -4,13 +4,15 @@ import Fonts from '../constants/Fonts';
 import { screenFont } from '../constants/Screen';
 import MovieCard from './MovieCard';
 
-function MovieList({ categoryTitle, movies }) {
+function MovieList({ categoryTitle, movies, favoriteUpdated }) {
   return (
     <Container>
       <CategoryTitle>{categoryTitle}</CategoryTitle>
       <MovieFlatList
         data={movies}
-        renderItem={MovieCard}
+        renderItem={({ item }) => (
+          <MovieCard item={item} favoriteUpdated={favoriteUpdated} />
+        )}
         horizontal={true}
         keyExtractor={(item) => item?.imdbID}
         contentContainerStyle={{ paddingLeft: 16 }}

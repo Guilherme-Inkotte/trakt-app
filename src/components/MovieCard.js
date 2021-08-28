@@ -7,7 +7,7 @@ import store from '../store';
 import { toggleFavorite } from '../actions';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-function MovieCard({ item, index }) {
+function MovieCard({ item, favoriteUpdated }) {
   if (item.Error) return <></>;
   return (
     <Container>
@@ -28,7 +28,10 @@ function MovieCard({ item, index }) {
           name={item.isFavorite ? 'heart' : 'heart-outline'}
           size={20}
           color={item.isFavorite ? Colors.mainRed : '#FFF'}
-          onPress={() => store.dispatch(toggleFavorite(item))}
+          onPress={() => {
+            store.dispatch(toggleFavorite(item));
+            favoriteUpdated(item.imdbID);
+          }}
         />
       </BottomInfo>
     </Container>
