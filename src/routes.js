@@ -1,8 +1,8 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import Fonts from './Constants/Fonts';
-import { screenFont } from './Constants/Screen';
+import Fonts from './constants/Fonts';
+import { screenFont } from './constants/Screen';
 // Import das telas
 import HomeScreen from './screens/Home';
 import FavoritesScreen from './screens/Favorites';
@@ -40,23 +40,21 @@ const Routes = () => {
           return <Ionicons name={iconName} size={24} color={color} />;
         },
         title: getRouteTitle(route),
-        tabBarActiveTintColor: 'tomato',
-        tabBarInactiveTintColor: '#fff',
+        tabBarActiveTintColor: '#da1e37',
+        tabBarInactiveTintColor: '#e8eddf',
         tabBarLabelStyle: { fontFamily: Fonts.main, fontSize: screenFont },
         tabBarStyle: {
-          backgroundColor: '#111',
-          position: 'absolute',
-          left: 0,
-          bottom: 0,
-          right: 0,
+          backgroundColor: '#000',
         },
         headerTitleStyle: {
           fontFamily: Fonts.mainBold,
-          color: '#FFF',
+          color: '#da1e37',
+          fontSize: screenFont + 10,
+          position: 'absolute',
+          top: 0,
+          left: 0,
         },
-        headerStyle: {
-          backgroundColor: '#000',
-        },
+        headerTransparent: true,
       })}
     >
       <Tab.Screen name="Home" component={HomeScreen} />

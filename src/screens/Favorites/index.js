@@ -3,7 +3,11 @@ import { Text } from 'react-native';
 import { Container } from './styles.js';
 
 const Favorites = () => {
-  return <Text>Favoritos</Text>;
+  return (
+    <Container>
+      <Text>Favoritos</Text>
+    </Container>
+  );
 };
 
 export default Favorites;
