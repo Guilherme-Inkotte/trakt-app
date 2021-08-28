@@ -3,10 +3,13 @@ import { NavigationContainer } from '@react-navigation/native';
 import Routes from './src/routes';
 import * as Font from 'expo-font';
 import AppLoading from 'expo-app-loading';
+import { Provider } from 'react-redux';
+import store from './src/store';
 
 export default function App() {
   let [isLoadingComplete, setIsLoadingComplete] = useState(false);
 
+  // Função que carrega as fontes do sistema
   async function loadResourcesAsync() {
     await Promise.all([
       Font.loadAsync({
@@ -16,6 +19,7 @@ export default function App() {
     ]);
   }
 
+  // Carrega os recursos enquanto o aplicativo carrega
   if (!isLoadingComplete) {
     return (
       <AppLoading
@@ -27,8 +31,10 @@ export default function App() {
   }
 
   return (
-    <NavigationContainer>
-      <Routes />
-    </NavigationContainer>
+    <Provider store={store}>
+      <NavigationContainer>
+        <Routes />
+      </NavigationContainer>
+    </Provider>
   );
 }

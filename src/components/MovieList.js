@@ -12,6 +12,7 @@ function MovieList({ categoryTitle, movies }) {
         data={movies}
         renderItem={MovieCard}
         horizontal={true}
+        keyExtractor={(item) => item?.imdbID}
         contentContainerStyle={{ paddingLeft: 16 }}
       />
     </Container>

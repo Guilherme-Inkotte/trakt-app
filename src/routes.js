@@ -8,8 +8,10 @@ import { screenFont } from './constants/Screen';
 import HomeScreen from './screens/Home';
 import FavoritesScreen from './screens/Favorites';
 
+// Cria a navegação
 const Tab = createBottomTabNavigator();
 
+// Método que retorna o título da página conforme o nome
 function getRouteTitle(route) {
   switch (route.name) {
     case 'Home':
@@ -21,6 +23,7 @@ function getRouteTitle(route) {
   }
 }
 
+// Cria as rotas e distribui os componentes
 const Routes = () => {
   return (
     <Tab.Navigator
