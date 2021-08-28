@@ -1,8 +1,8 @@
 import React from 'react';
-import { Text, Image, View } from 'react-native';
 import styled from 'styled-components/native';
 import Fonts from '../constants/Fonts';
 import { screenFont } from '../constants/Screen';
+import MovieCard from './MovieCard';
 
 function MovieList({ categoryTitle, movies }) {
   return (
@@ -10,21 +10,9 @@ function MovieList({ categoryTitle, movies }) {
       <CategoryTitle>{categoryTitle}</CategoryTitle>
       <MovieFlatList
         data={movies}
-        renderItem={({ item }) => {
-          console.log(item.Poster);
-          return (
-            <View>
-              <Text>{item.movie.title}</Text>
-              <Image
-                source={{
-                  uri: item.Poster,
-                }}
-                style={{ height: 100 }}
-              />
-            </View>
-          );
-        }}
+        renderItem={MovieCard}
         horizontal={true}
+        contentContainerStyle={{ paddingLeft: 16 }}
       />
     </Container>
   );
@@ -37,12 +25,14 @@ const Container = styled.View`
 const CategoryTitle = styled.Text`
   font-family: ${Fonts.main};
   color: #fff;
-  font-size: ${screenFont + 4};
-  margin-left: 16;
+  font-size: ${screenFont + 6}px;
+  margin-left: 16px;
+  margin-bottom: 8px;
 `;
 
 const MovieFlatList = styled.FlatList`
   width: 100%;
+  margin-bottom: 20px;
 `;
 
 export default MovieList;
