@@ -8,7 +8,7 @@ import appConfig from '../../../secret/appConfig.json';
 import moment from 'moment';
 import store from '../../store';
 
-const Home = () => {
+const Home = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
   const [trendingMovies, setTrendingMovies] = useState([]);
   const [recommendedMovies, setRecommendedMovies] = useState([]);
@@ -19,18 +19,14 @@ const Home = () => {
   }, []);
 
   // Registro de eventListeners
-  // useEffect(() => {
-  //   // Aciona toda vez que um filme é favoritado
-  //   const unsubscribe = store.subscribe(() => {
-  //     checkForFavoriteUpdate();
-  //   });
-  //   return () => {
-  //     unsubscribe();
-  //   };
-  // }, []);
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      getData();
+    });
+    return unsubscribe;
+  }, [navigation]);
 
   function favoriteUpdated(imdbID) {
-    console.log(imdbID);
     // Realiza uma cópia do estado do Redux
     // Percorre as 3 categorias de filmes para verificar se está favoritado ou não
     // Esse método é necessário porque caso um filme esteja em múltiplas listas

@@ -9,7 +9,6 @@ export const Container = styled.View`
 
 export const MovieList = styled.FlatList`
   flex: 1;
-  background-color: 'red';
 `;
 
 export const NoneMessageContainer = styled.View`
