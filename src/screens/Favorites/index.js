@@ -8,10 +8,15 @@ import {
 import FavoriteCard from '../../components/FavoriteCard';
 import store from '../../store';
 import { RefreshControl, ScrollView } from 'react-native';
+import { updateFavorite } from '../../actions';
 
 const Favorites = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
   const [movies, setMovies] = useState([]);
+
+  useEffect(() => {
+    getData();
+  }, []);
 
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
@@ -24,9 +29,9 @@ const Favorites = ({ navigation }) => {
     return unsubscribe;
   }, [navigation]);
 
-  function getData() {
+  async function getData() {
     setLoading(true);
-    setMovies(store.getState());
+    setMovies(store.getState().favorite);
     setLoading(false);
   }
 

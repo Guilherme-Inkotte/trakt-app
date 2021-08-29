@@ -60,7 +60,7 @@ const Home = ({ navigation }) => {
     if (loading) return;
     setLoading(true);
     // Realiza uma cópia do estado do Redux
-    let storeData = store.getState();
+    let storeData = store.getState().favorite;
     trakt
       .get('/movies/trending')
       .then(async (res) => {

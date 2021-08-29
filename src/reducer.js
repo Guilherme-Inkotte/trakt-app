@@ -1,5 +1,7 @@
+import { combineReducers } from 'redux';
+
 // Registra os métodos que alteram o estado do Redux
-export default function reducer(state = [], action) {
+function favoriteReducer(state = [], action) {
   switch (action.type) {
     case 'ADD_FAVORITE':
       return [...state, action.payload.movie];
@@ -17,3 +19,29 @@ export default function reducer(state = [], action) {
       return state;
   }
 }
+
+const defaultState = {
+  isPending: true,
+  movie: null,
+};
+
+function selectedMovieReducer(state = defaultState, action) {
+  switch (action.type) {
+    case 'FETCH_SELECTED_MOVIE_PENDING':
+      return defaultState;
+
+    case 'FETCH_SELECTED_MOVIE_FULFILLED':
+      return {
+        isPending: false,
+        image: action.payload.movie,
+      };
+
+    default:
+      return state;
+  }
+}
+
+export default rootReducer = combineReducers({
+  favorite: favoriteReducer,
+  selectedMovie: selectedMovieReducer,
+});
