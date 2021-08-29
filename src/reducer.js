@@ -27,13 +27,19 @@ const defaultState = {
 
 function selectedMovieReducer(state = defaultState, action) {
   switch (action.type) {
+    case 'REMOVE_SELECTED_MOVIE':
+      return {
+        isPending: false,
+        movie: action.payload,
+      };
+
     case 'FETCH_SELECTED_MOVIE_PENDING':
       return defaultState;
 
     case 'FETCH_SELECTED_MOVIE_FULFILLED':
       return {
         isPending: false,
-        image: action.payload.movie,
+        movie: action.payload,
       };
 
     default:

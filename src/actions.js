@@ -23,3 +23,8 @@ export const fetchSelectedMovie = (imdbID) => ({
     .get(`?apikey=${appConfig.OMDB_API_KEY}&i=${imdbID}`)
     .then((response) => response.data),
 });
+
+export const removeSelectedMovie = () => ({
+  type: 'REMOVE_SELECTED_MOVIE',
+  payload: null,
+});

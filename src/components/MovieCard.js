@@ -4,13 +4,17 @@ import Fonts from '../constants/Fonts';
 import Colors from '../constants/Colors';
 import { screenFont } from '../constants/Screen';
 import store from '../store';
-import { toggleFavorite } from '../actions';
+import { toggleFavorite, fetchSelectedMovie } from '../actions';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 function MovieCard({ item, favoriteUpdated }) {
   if (item.Error) return <></>;
   return (
-    <Container>
+    <Container
+      onPress={() => {
+        store.dispatch(fetchSelectedMovie(item.imdbID));
+      }}
+    >
       {item?.Poster != 'N/A' ? (
         <CardImage
           source={{
@@ -38,7 +42,7 @@ function MovieCard({ item, favoriteUpdated }) {
   );
 }
 
-const Container = styled.View`
+const Container = styled.TouchableOpacity`
   height: 280px;
   width: 160px;
   margin-right: 16px;
